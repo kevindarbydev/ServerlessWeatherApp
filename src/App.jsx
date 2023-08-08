@@ -18,14 +18,14 @@ function App() {
   const arrayOfWords = day.split(" ");
   const myDate =
     arrayOfWords[0] + ", " + arrayOfWords[1] + " " + arrayOfWords[2];
+  const apiKey = import.meta.env.APP_KEY;
 
   const convertCelsius = (temp) => {
     return ((temp - 32) * 0.5556).toFixed(2);
-  };
-
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=67976d3f73c8c020f42d420289745def`;
+  }; 
 
   const searchLocation = async (event) => {
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=${apiKey}`;
     if (event.key === "Enter") {
       try {
         const response = await fetch(url);
