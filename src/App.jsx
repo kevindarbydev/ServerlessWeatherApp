@@ -2,8 +2,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
-function App() {
-  const [data, setData] = useState({});
+function App() {  
   const [location, setLocation] = useState("");
   const [temp, setTemp] = useState("");
   const [windSpeed, setWindSpeed] = useState("");
@@ -29,8 +28,7 @@ function App() {
       try {
         const response = await fetch(apiGateway);
         if (response.ok) {
-          const data = await response.json();
-          setData(data);
+          const data = await response.json();          
 
           let cityAndCountry = data.name + ", " + data.sys.country;
           setEnteredLocation(cityAndCountry);
