@@ -18,17 +18,16 @@ function App() {
   const arrayOfWords = day.split(" ");
   const myDate =
     arrayOfWords[0] + ", " + arrayOfWords[1] + " " + arrayOfWords[2];
-  const apiKey = import.meta.env.APP_KEY;
 
   const convertCelsius = (temp) => {
     return ((temp - 32) * 0.5556).toFixed(2);
   }; 
 
   const searchLocation = async (event) => {
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=${apiKey}`;
+    let apiGateway = `https://5xxs8tdalb.execute-api.us-east-1.amazonaws.com/default/FetchWeather?location=${location}`;  
     if (event.key === "Enter") {
       try {
-        const response = await fetch(url);
+        const response = await fetch(apiGateway);
         if (response.ok) {
           const data = await response.json();
           setData(data);
@@ -37,17 +36,18 @@ function App() {
           setEnteredLocation(cityAndCountry);
           if (data.sys.country == 'US'){
             setCelsiusOrFarenheit("F");
-          } else setCelsiusOrFarenheit("C");
+            setTemp(data.main.temp);
+            setFeelsLike(data.main.feels_like);
+          } else {
+            setCelsiusOrFarenheit("C");
+            setTemp(convertCelsius(data.main.temp));
+            setFeelsLike(convertCelsius(data.main.feels_like));
+          }
           setHumidity(data.main.humidity);
           setWindSpeed(data.wind.speed);
-          setTemp(convertCelsius(data.main.temp));
-          setFeelsLike(convertCelsius(data.main.feels_like));
-
           const iconData = data.weather[0].icon;
           document.querySelector(".icon").src =
             "https://openweathermap.org/img/wn/" + iconData + "@2x.png";
-        } else {
-          console.error("Failed to fetch weather data");
         }
       } catch (error) {
         console.error("An error occurred:", error);
@@ -59,7 +59,7 @@ function App() {
   async function fetchWeatherAtHome() {
     try {
       const response = await fetch(
-        "https://api.openweathermap.org/data/2.5/weather?lat=45.47&lon=-73.83&units=metric&appid=67976d3f73c8c020f42d420289745def"
+        "https://5xxs8tdalb.execute-api.us-east-1.amazonaws.com/default/FetchMontreal"
       );
 
       if (response.ok) {
