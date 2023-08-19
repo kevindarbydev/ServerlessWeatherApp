@@ -100,6 +100,7 @@ function App() {
           &nbsp;&nbsp;&nbsp;
           {enteredLocation}
         </h2>
+        <h2>CODEPIPELINE Working!</h2>
         <div className="temp">
           {temp} °<span id="tempSpan">{celsiusOrFarenheit}</span>{" "}
         </div>
