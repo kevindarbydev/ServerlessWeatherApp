@@ -4,10 +4,10 @@ import "./App.css";
 
 function App() {  
   const [location, setLocation] = useState("");
-  const [temp, setTemp] = useState("");
-  const [windSpeed, setWindSpeed] = useState("");
-  const [feelsLike, setFeelsLike] = useState("");
-  const [humidity, setHumidity] = useState("");
+  const [temp, setTemp] = useState(0);
+  const [windSpeed, setWindSpeed] = useState(0);
+  const [feelsLike, setFeelsLike] = useState(0);
+  const [humidity, setHumidity] = useState(0);
   const [description, setDescription] = useState("");
   const [enteredLocation, setEnteredLocation] = useState("");
   const [celsiusOrFarenheit, setCelsiusOrFarenheit] = useState("C")
