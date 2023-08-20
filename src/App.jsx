@@ -101,14 +101,14 @@ function App() {
           {enteredLocation}
         </h2>
         <div className="temp">
-          {temp} °<span id="tempSpan">{celsiusOrFarenheit}</span>{" "}
+          {temp.toFixed()} °<span id="tempSpan">{celsiusOrFarenheit}</span>{" "}
         </div>
         <img src="" className="icon"></img>
         <div className="description">{description}</div>
         <div className="bottom">
           <div className="feelsLike">
             Feels like:
-            {feelsLike} °<span id="celsiusBtm">C</span>
+            {feelsLike.toFixed()} °<span id="celsiusBtm">C</span>
           </div>
           <div className="humidity">Humidity: {humidity}%</div>
           <div className="wind">Wind speed: {windSpeed}</div>
