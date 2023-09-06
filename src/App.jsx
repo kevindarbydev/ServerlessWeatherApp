@@ -11,6 +11,7 @@ function App() {
   const [description, setDescription] = useState("");
   const [enteredLocation, setEnteredLocation] = useState("");
   const [celsiusOrFarenheit, setCelsiusOrFarenheit] = useState("C")
+  const [milesOrKilometers, setMilesOrKilometers] = useState("km/h")
 
   const today = new Date();
   const day = today.toString();
@@ -21,6 +22,8 @@ function App() {
   const convertCelsius = (temp) => {
     return ((temp - 32) * 0.5556).toFixed(2);
   }; 
+
+  const milesToKm = (miles) => miles * 1.609344;
 
   const searchLocation = async (event) => {
     let apiGateway = `https://5xxs8tdalb.execute-api.us-east-1.amazonaws.com/default/FetchWeather?location=${location}`;  
@@ -36,13 +39,17 @@ function App() {
             setCelsiusOrFarenheit("F");
             setTemp(data.main.temp);
             setFeelsLike(data.main.feels_like);
+            setWindSpeed(data.wind.speed);
+            setMilesOrKilometers("mph");
           } else {
             setCelsiusOrFarenheit("C");
             setTemp(convertCelsius(data.main.temp));
             setFeelsLike(convertCelsius(data.main.feels_like));
+            setWindSpeed(milesToKm(data.wind.speed));
+            setMilesOrKilometers("km/h");
           }
           setHumidity(data.main.humidity);
-          setWindSpeed(data.wind.speed);
+          
           const iconData = data.weather[0].icon;
           document.querySelector(".icon").src =
             "https://openweathermap.org/img/wn/" + iconData + "@2x.png";
@@ -107,11 +114,12 @@ function App() {
         <div className="description">{description}</div>
         <div className="bottom">
           <div className="feelsLike">
-            Feels like:
-            {feelsLike.toFixed()} °<span id="celsiusBtm">C</span>
+            Feels like:&nbsp;
+            {feelsLike.toFixed()} °
+            <span id="celsiusBtm">{celsiusOrFarenheit}</span>
           </div>
           <div className="humidity">Humidity: {humidity}%</div>
-          <div className="wind">Wind speed: {windSpeed}</div>
+          <div className="wind">Wind speed: {windSpeed} {milesOrKilometers}</div>
         </div>
       </div>
     </div>
