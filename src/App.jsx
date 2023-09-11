@@ -25,9 +25,9 @@ function App() {
 
   const milesToKm = (miles) => miles * 1.609344;
 
-  const searchLocation = async (event) => {
-    let apiGateway = `https://5xxs8tdalb.execute-api.us-east-1.amazonaws.com/default/FetchWeather?location=${location}`;  
+  const searchLocation = async (event) => {    
     if (event.key === "Enter") {
+      let apiGateway = `https://5xxs8tdalb.execute-api.us-east-1.amazonaws.com/default/FetchWeather?location=${location}`;  
       try {
         const response = await fetch(apiGateway);
         if (response.ok) {
